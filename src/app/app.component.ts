@@ -7,8 +7,9 @@ import { HttpApiComponent } from './http-api/http-api.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+
   title = '';
-  firstName = 'enter album name';
+  seachedAlbum = 'enter album name';
 
   artistName = '';
   total_tracks = '';
@@ -16,15 +17,34 @@ export class AppComponent {
 
   albumImageUrl = '';
 
-  recentAlbums = [];
+  recentAlbums: {
+    images: {
+      url: string;
+    }[];
+    artists: {
+      name: string;
+    }[];
+    release_date: string;
+    total_tracks: string;
+    name: string;
+  }[] = [];
+
+  forloopdata = [1, 2, 3, 4];
+  nullCustomer = true;
+
+  categoriesResponse: {
+    icons: {
+      url: string;
+    }[];
+  }[] = [];
 
   constructor(private httpService: HttpApiComponent) {}
 
-  onClick(event: Event) {
-    this.httpService.getAlbum(this.firstName).subscribe(
+  onSearchAlbumClick(event: Event) {
+    this.httpService.getAlbum(this.seachedAlbum).subscribe(
       (response: any) => {
         console.log(response);
-        this.albumImageUrl = response.albums.items[0].images[0].url;
+        this.recentAlbums = response.albums.items;
       },
       (error: any) => {
         console.log(error);
@@ -32,8 +52,8 @@ export class AppComponent {
     );
   }
 
-  onChange($event: Event) {
-    this.firstName = ($event?.target as HTMLInputElement).value;
+  onSearchAlbumChange($event: Event) {
+    this.seachedAlbum = ($event?.target as HTMLInputElement).value;
   }
 
   handleRecentAlbum() {
@@ -47,6 +67,19 @@ export class AppComponent {
         this.artistName = response.albums.items[10].artists[0].name;
         this.total_tracks = response.albums.items[10].total_tracks;
         this.release_date = response.albums.items[10].release_date;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  handleFetchCategories() {
+    this.httpService.getCategories().subscribe(
+      (response: any) => {
+        this.categoriesResponse = response.categories.items;
+        this.albumImageUrl = response.categories.items[0].icons[0].url;
+        this.artistName = response.categories.items[0].name;
       },
       (error: any) => {
         console.log(error);
