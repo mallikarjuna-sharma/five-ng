@@ -7,16 +7,14 @@ import { HttpApiComponent } from './http-api/http-api.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-
   title = '';
-  seachedAlbum = 'enter album name';
 
   artistName = '';
   total_tracks = '';
   release_date = '';
-
   albumImageUrl = '';
 
+  seachedAlbum = 'enter album name';
   recentAlbums: {
     images: {
       url: string;
@@ -28,15 +26,14 @@ export class AppComponent {
     total_tracks: string;
     name: string;
   }[] = [];
-
-  forloopdata = [1, 2, 3, 4];
-  nullCustomer = true;
-
   categoriesResponse: {
     icons: {
       url: string;
     }[];
   }[] = [];
+
+  playlistResponse: any = [];
+  myTracks: any = [];
 
   constructor(private httpService: HttpApiComponent) {}
 
@@ -85,6 +82,38 @@ export class AppComponent {
         console.log(error);
       }
     );
+  }
+
+  handlePlaylist() {
+    this.httpService.getPlaylists().subscribe(
+      (response: any) => {
+        console.log(response.playlists.items);
+        this.playlistResponse = response.playlists.items;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  handleMyTracks() {
+    this.httpService.getMyTracks().subscribe(
+      (response: any) => {
+        this.myTracks = response.items;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  handlePlayNow(item: any) {
+    if (item?.external_urls?.spotify) {
+      window.location.href = item.external_urls.spotify;
+    }
+    if (item?.track?.external_urls?.spotify) {
+      window.location.href = item.track.external_urls.spotify;
+    }
   }
 }
 

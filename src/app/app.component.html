@@ -1,5 +1,5 @@
 <div class="header1">
-  <button class="tile" (click)="handleRecentAlbum()">Get recent Albums</button>
+  <button class="tile" (click)="handleRecentAlbum()">Recent Albums</button>
 
   <button class="tile" (click)="onSearchAlbumClick($event)">
     <input
@@ -8,11 +8,17 @@
       type="text"
       placeholder="Enter Album Name"
     />
-    Search Album
+    Search By Album
   </button>
 
-  <button class="tile" (click)="handleFetchCategories()">Get Categories</button>
+  <button class="tile" (click)="handleFetchCategories()">
+    Browse Categories
+  </button>
 
+  
+  <button class="tile" (click)="handlePlaylist()">Featured Playlists</button>
+
+  <button class="tile" (click)="handleMyTracks()">My Tracks</button>
   <!-- <div *ngFor="let item of forloopdata">{{item}}</div> -->
   <!-- <div *ngIf="nullCustomer">Hello, <span>{{nullCustomer}}</span></div> -->
 </div>
@@ -31,7 +37,7 @@
     </div>
     <div class="button-wrapper">
       <button class="btn outline">More DETAILS</button>
-      <button class="btn fill">Play NOW</button>
+      <button class="btn fill" (click)="handlePlayNow(item)">Play NOW</button>
     </div>
   </div>
 </div>
@@ -50,7 +56,37 @@
     </div>
     <div class="button-wrapper">
       <button class="btn outline">More DETAILS</button>
-      <button class="btn fill">Play NOW</button>
+      <button class="btn fill" (click)="handlePlayNow(item)">Play NOW</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="playlistResponse.length" class="container-wrapper">
+  <div class="container" *ngFor="let item of playlistResponse">
+    <div>
+      <img src="{{ item.images[0].url }}" height="300px" width="300px" />
+      <!-- <div class="banner-image"></div> -->
+      <h4 style="color: white">{{ item.name }}</h4>
+      <p>playlist description : {{ item.description }} <br /></p>
+    </div>
+    <div class="button-wrapper">
+      <button class="btn outline">More DETAILS</button>
+      <button class="btn fill" (click)="handlePlayNow(item)">Play NOW</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="myTracks.length" class="container-wrapper">
+  <div class="container" *ngFor="let item of myTracks">
+    <div>
+      <img src="{{ item.track.album.images[0].url }}" height="300px" width="300px" />
+      <!-- <div class="banner-image"></div> -->
+      <h4 style="color: white">{{ item.track.album.name }}</h4>
+      <p>playlist description : {{ item.track.album.release_date }} <br /></p>
+    </div>
+    <div class="button-wrapper">
+      <button class="btn outline">More DETAILS</button>
+      <button class="btn fill" (click)="handlePlayNow(item)">Play NOW</button>
     </div>
   </div>
 </div>
