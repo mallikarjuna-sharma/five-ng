@@ -39,23 +39,7 @@ export class AppComponent {
 
   constructor(private httpService: HttpApiComponent) {}
 
-  ngOnInit() {
-    this.httpService.getMe().subscribe(
-      (response: any) => {
-        console.log(response);
-        this.myObject.birthdate = response.birthdate;
-        this.myObject.display_name = response.display_name;
-        this.myObject.email = response.email;
-
-        this.myObject.followers = response.followers.total;
-        this.myObject.url = response.images[0].url;
-        this.myObject.product = response.product;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+ 
 
   onSearchAlbumClick(event: Event) {
     this.httpService.getAlbum(this.seachedAlbum).subscribe(
