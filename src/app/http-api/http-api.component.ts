@@ -14,10 +14,9 @@ export class HttpApiComponent {
   constructor(private http: HttpClient) {}
 
   token =
-    'BQCRRbpE-Og4W0i0yOBHNvw4IiRYL6tbZigzQiUG1EQgupJaomUHDtSz7MGfD6py2ri0Rb28km49A6_cNvQTW43lOAJvP96B5imkCGmU6cDaqp52hq8Yef2Hid6cCJL5s1RdCJOhnybPSp56g8magWrCGctCY3fGX_Yqr1ChSNa8kwvMm6JK7YRinnzcu_DCzKnawGK2qENi6npxF4skWqhV75WnSVC7xYh-LnokKgGEobCP74raS8T7q-mTMPownwf5KX4vWxiPboLpcbReul6GQCosu6Qas69HkaxtxAkePZAYRW2SED4iQFSp7iInrQ';
+    'BQAuAt7CI5IcK0zaubeimnC024JWtdg5Rtc2SC-q-7r9XgW4snKQ8zdBmOz3jp94ShRZf7Us5Y5u08ZP9bkgR_RJsaddr5XrcGAGmZeVrnqrkOXZ4J4rsOZaDBoAQh5xc0O1-geo5uI0D-fd4hfawMP32aJcUrtTIKBmXxa8lQfm2njvEd2jzdobahtpFtDYvngQfvc8521zCoMB7Z1CQU9D1_C6N939B75ozkWgn70kW36eyEeFZJZGfmul1AZxIcAPDvbLpucNXFG99OKT9XYyoXB1vjqBFdIKhHXW-SihSc7ki77M6tNcmBAqncKKzw';
 
   url = 'https://any-api.com:8443/https://api.spotify.com/v1/';
-
 
   getAlbum(movieName: string) {
     return this.http.get(
@@ -63,13 +62,18 @@ export class HttpApiComponent {
     );
   }
   getMyTracks() {
-    return this.http.get(
-      this.url + '/me/tracks?limit=20&offset=0&market=IN',
-      {
-        headers: {
-          Authorization: 'Bearer ' + this.token,
-        },
-      }
-    );
+    return this.http.get(this.url + '/me/tracks?limit=20&offset=0&market=IN', {
+      headers: {
+        Authorization: 'Bearer ' + this.token,
+      },
+    });
+  }
+
+  getMe() {
+    return this.http.get(this.url + '/me', {
+      headers: {
+        Authorization: 'Bearer ' + this.token,
+      },
+    });
   }
 }

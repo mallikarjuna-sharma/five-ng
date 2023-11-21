@@ -1,3 +1,49 @@
+<div class="header">
+  <div class="header__logo">
+    <img src="{{ myObject.url }}" />
+  </div>
+  <nav class="navbar">
+    <ul class="navbar__menu">
+      <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="home"></i><span>{{ myObject.display_name }}</span>
+        </a>
+      </li>
+      <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="message-square"></i
+          ><span>{{ myObject.email }}</span></a
+        >
+      </li>
+      <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="users"></i><span>{{ myObject.birthdate }}</span></a
+        >
+      </li>
+      <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="folder"></i><span>{{ myObject.followers }}</span></a
+        >
+      </li>
+      <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="archive"></i><span>{{ myObject.product }}</span></a
+        >
+      </li>
+      <!-- <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="help-circle"></i><span>Help</span></a
+        >
+      </li>
+      <li class="navbar__item">
+        <a href="#" class="navbar__link"
+          ><i data-feather="settings"></i><span>Settings</span></a
+        >
+      </li> -->
+    </ul>
+  </nav>
+</div>
+
 <div class="header1">
   <button class="tile" (click)="handleRecentAlbum()">Recent Albums</button>
 
@@ -15,7 +61,6 @@
     Browse Categories
   </button>
 
-  
   <button class="tile" (click)="handlePlaylist()">Featured Playlists</button>
 
   <button class="tile" (click)="handleMyTracks()">My Tracks</button>
@@ -79,7 +124,11 @@
 <div *ngIf="myTracks.length" class="container-wrapper">
   <div class="container" *ngFor="let item of myTracks">
     <div>
-      <img src="{{ item.track.album.images[0].url }}" height="300px" width="300px" />
+      <img
+        src="{{ item.track.album.images[0].url }}"
+        height="300px"
+        width="300px"
+      />
       <!-- <div class="banner-image"></div> -->
       <h4 style="color: white">{{ item.track.album.name }}</h4>
       <p>playlist description : {{ item.track.album.release_date }} <br /></p>
